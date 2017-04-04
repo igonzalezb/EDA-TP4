@@ -23,7 +23,6 @@ public:
 	Graphics();
 	int GraphicsMain();
 	int allegro_setup();
-	void printWorm(Worm worm);
 
 private:
 	ALLEGRO_DISPLAY *display = NULL;
@@ -63,11 +62,13 @@ private:
 	Worm worm1;
 	Worm worm2;
 
+	bool miliseconds;
 	bool key_pressed[6]; //Estado de teclas, true cuando esta apretada
 	bool redraw;
 	bool do_exit;
 
 	int loadImages();
+	void dispatcher(ALLEGRO_EVENT ev);
 
 };
 
