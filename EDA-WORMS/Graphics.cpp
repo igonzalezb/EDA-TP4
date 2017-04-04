@@ -20,7 +20,7 @@ Graphics::Graphics()
 	al_set_display_icon(display, sega);
 
 
-	//intro();
+	intro();
 	
 	for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
 	
@@ -41,7 +41,8 @@ Graphics::Graphics()
 
 	uint _walkArray []= {4,4,4,4,4,1,2,3,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
 	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i] - 1; }
-	uint _jumpArray []= {1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
+
+	uint _jumpArray []= {1,2,3,4,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,7,8,9,10};
 	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i] - 1; }
 	
 	ALLEGRO_BITMAP *_bitmapArrWalk[] = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
