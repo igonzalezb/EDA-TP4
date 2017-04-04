@@ -37,6 +37,10 @@ Graphics::Graphics()
 	al_draw_bitmap(Scenario, 0.0, 0.0, 0);
 	al_flip_display();
 	al_start_timer(timer);
+	walkArray = {4,4,4,4,4,4,5,6,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
+	jumpArray = {1,1,1,1,1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
+	bitmapArrWalk = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
+	bitmapArrJump = {wJumpF1,wJumpF2,wJumpF3,wJumpF4,wJumpF5,wJumpF6,wJumpF7,wJumpF8,wJumpF9,wJumpF10};
 
 }
 
@@ -259,6 +263,23 @@ int Graphics::GraphicsMain()
 }
 void Graphics::printWorm(Worm worm)
 {
+
+	if(worm.whatAmIDoing() == WALKING ||worm.whatAmIDoing() == FINISHING_WALKING )
+	{
+			al_draw_scaled_bitmap(bitmapArrWalk[walkArray[worm.getCurrentFrame()]], 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+	}
+	else if(worm.whatAmIDoing() == JUMPING ||worm.whatAmIDoing() == FINISHING_JUMPING)
+	{
+			al_draw_scaled_bitmap(bitmapArrJump[jumpArray[worm.getCurrentFrame()]], 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+	}
+	else
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+
+
+
+
+
+/*
 	//WALKING FRAMES
 	switch (worm.getCurrentFrame())
 	{
@@ -322,6 +343,7 @@ void Graphics::printWorm(Worm worm)
 		break;
 	}
 
+}*/
 }
 
 int Graphics::allegro_setup()

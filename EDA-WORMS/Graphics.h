@@ -75,6 +75,11 @@ private:
 	ALLEGRO_BITMAP *wJumpF9 = NULL;
 	ALLEGRO_BITMAP *wJumpF10 = NULL;
 
+	uint walkArray[50];
+	uint jumpArray[50]; 
+	ALLEGRO_BITMAP * bitmapArrWalk[15];
+	ALLEGRO_BITMAP * bitmapArrJump[10];
+
 
 	Worm worm1;
 	Worm worm2;
