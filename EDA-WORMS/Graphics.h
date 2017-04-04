@@ -5,6 +5,14 @@
 #include <cstdio>
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
+#include<allegro5\allegro_video.h>
+#include<allegro5\allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+#include<allegro5\allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+#include<allegro5\mouse.h>
+#include<allegro5\mouse_cursor.h>
 #include "Worm.h"
 
 typedef uint32_t uint;
@@ -54,11 +62,13 @@ private:
 	Worm worm1;
 	Worm worm2;
 
+	bool miliseconds;
 	bool key_pressed[6]; //Estado de teclas, true cuando esta apretada
 	bool redraw;
 	bool do_exit;
 
 	int loadImages();
+	void dispatcher(ALLEGRO_EVENT ev);
 
 };
 
