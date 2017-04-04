@@ -3,11 +3,11 @@
 #define START_POSITION	240
 #define MAX_POSITION	470				//Es la diferencia entre el inicio y el final en px para que no se pase
 #define MAX_Y_POSITION	616
-#define V_JUMP_Y	17.0
-#define V_JUMP_X 60
-#define V_WALK	27.0
-#define GRAVITY	0.24
-#define M_PI (acos(-1.0))
+#define V_JUMP		4.5
+#define CORRECTION_FACTOR	0.03
+#define V_WALK		27.0
+#define GRAVITY		0.24
+#define M_PI		(acos(-1.0))
 
 Worm::Worm()
 {
@@ -64,18 +64,18 @@ void Worm::continueAction()
 	if(IamDoing == JUMPING && aux == false)
 	{
 	
-		//float velocidad_en_el_punto = abs((0.866 *V_JUMP) - (GRAVITY * 3.25*(frameCount+1)));
+		p.setY(MAX_Y_POSITION - V_JUMP*sin((double)M_PI / 3)*(frameCount)+(GRAVITY/2)*pow(frameCount, 2));
 
 
-	
-		p.setY(MAX_Y_POSITION - (0.866 *V_JUMP_Y*1.63333*(frameCount + 1)) + (GRAVITY* pow((double) (1.633333*(frameCount + 1)),2)));
 		switch(lookingRight)
 		{
 			case true:
-				p.setX(p.getX()+(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
+				//p.setX(p.getX()+(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
+				p.setX(p.getX() + ((frameCount)*V_JUMP*cos((double)M_PI/3))*CORRECTION_FACTOR);
 				break;
 			case false:
-				p.setX(p.getX()-(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
+				//p.setX(p.getX()-(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
+				p.setX(p.getX() - ((frameCount)*V_JUMP*cos((double)M_PI / 3))*CORRECTION_FACTOR);
 				break;
 		}
 		if(p.getY() >MAX_Y_POSITION)

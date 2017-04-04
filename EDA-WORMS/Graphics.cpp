@@ -40,7 +40,7 @@ Graphics::Graphics()
 
 	uint _walkArray []= {4,4,4,4,4,4,5,6,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
 	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i]; }
-	uint _jumpArray []= {1,1,1,1,1,2,2,2,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
+	uint _jumpArray []= {1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
 	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i]; }
 	
 	ALLEGRO_BITMAP *_bitmapArrWalk[] = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
@@ -281,9 +281,7 @@ void Graphics::printWorm(Worm worm)
 		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
 
 
-
-
-
+	
 /*
 	//WALKING FRAMES
 	switch (worm.getCurrentFrame())
