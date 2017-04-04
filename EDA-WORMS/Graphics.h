@@ -34,6 +34,7 @@ public:
 	Graphics();
 	int GraphicsMain();
 	int allegro_setup();
+	void allegro_desinstalar();
 	void printWorm(Worm _worm);
 	void intro();
 

@@ -21,6 +21,7 @@ Graphics::Graphics()
 
 
 	//intro();
+	
 	for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
 	
 	
@@ -38,10 +39,10 @@ Graphics::Graphics()
 	al_flip_display();
 	al_start_timer(timer);
 
-	uint _walkArray []= {4,4,4,4,4,4,5,6,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
-	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i]; }
+	uint _walkArray []= {4,4,4,4,4,1,2,3,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
+	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i] - 1; }
 	uint _jumpArray []= {1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
-	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i]; }
+	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i] - 1; }
 	
 	ALLEGRO_BITMAP *_bitmapArrWalk[] = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
 	for (uint i = 0; i < 15; i++) { bitmapArrWalk[i] = _bitmapArrWalk[i]; }
@@ -146,7 +147,7 @@ void Graphics::intro()
 	al_draw_bitmap(imagen2, largo *  0.5, alto / 6, 0);
 	al_flip_display();
 	al_rest(2);
-	for (float timer = 1; timer != 100; timer++) {
+	for (float timer = 1; timer != 30; timer++) {
 
 		al_draw_tinted_bitmap(imagen2,
 			al_map_rgba_f(1 / timer, 1 / timer, 1 / timer, 1 / timer),
@@ -214,7 +215,7 @@ void Graphics::intro()
 		if (evIntro.type == ALLEGRO_EVENT_TIMER) {
 			al_draw_text(font, al_map_rgb(255, 255, 255), alto / 2, (largo * 5 / 6), ALLEGRO_ALIGN_CENTRE, "Press any key to continue");
 			al_flip_display();
-			al_rest(0.1);
+			al_rest(0.2);
 
 		}
 		else if (evIntro.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -260,12 +261,12 @@ int Graphics::GraphicsMain()
 
 
 	}
-	al_destroy_timer(timer);
-	al_destroy_display(display);
-	al_destroy_event_queue(event_queue);
+	
 
 	return 0;
 }
+
+
 void Graphics::printWorm(Worm worm)
 {
 
@@ -280,73 +281,6 @@ void Graphics::printWorm(Worm worm)
 	else
 		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
 
-
-	
-/*
-	//WALKING FRAMES
-	switch (worm.getCurrentFrame())
-	{
-	case 0: case 1: case 2: case 3: case 4:
-		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-
-	case 5:
-		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 6: 
-		al_draw_scaled_bitmap(wWalkF5, 0.0, 0.0, al_get_bitmap_width(wWalkF5), al_get_bitmap_height(wWalkF5), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 7: 
-		al_draw_scaled_bitmap(wWalkF6, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 8: case 22: case 36:
-		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 9: case 23: case 37:
-		al_draw_scaled_bitmap(wWalkF5, 0.0, 0.0, al_get_bitmap_width(wWalkF5), al_get_bitmap_height(wWalkF5), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 10: case 24: case 38:
-		al_draw_scaled_bitmap(wWalkF6, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 11: case 25: case 39:
-		al_draw_scaled_bitmap(wWalkF7, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 12: case 26: case 40:
-		al_draw_scaled_bitmap(wWalkF8, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 13: case 27: case 41:
-		al_draw_scaled_bitmap(wWalkF9, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 14: case 28: case 42:
-		al_draw_scaled_bitmap(wWalkF10, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 15: case 29: case 43:
-		al_draw_scaled_bitmap(wWalkF11, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 16: case 30: case 44:
-		al_draw_scaled_bitmap(wWalkF11, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 17: case 31: case 45:
-		al_draw_scaled_bitmap(wWalkF12, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 18: case 32: case 46:
-		al_draw_scaled_bitmap(wWalkF13, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 19: case 33: case 47:
-		al_draw_scaled_bitmap(wWalkF14, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 20: case 34: case 48:
-		al_draw_scaled_bitmap(wWalkF15, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	case 21: case 35: case 49:
-		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	default:
-		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
-		break;
-	}
-
-}*/
 }
 
 int Graphics::allegro_setup()
@@ -779,4 +713,56 @@ void Graphics::dispatcher(ALLEGRO_EVENT ev)
 			break;
 		}
 	}
+}
+
+
+void Graphics::allegro_desinstalar()
+{
+	al_destroy_bitmap(wWalkF1);
+	al_destroy_bitmap(wWalkF2);
+	al_destroy_bitmap(wWalkF3);
+	al_destroy_bitmap(wWalkF4);
+	al_destroy_bitmap(wWalkF5);
+	al_destroy_bitmap(wWalkF6);
+	al_destroy_bitmap(wWalkF7);
+	al_destroy_bitmap(wWalkF8);
+	al_destroy_bitmap(wWalkF9);
+	al_destroy_bitmap(wWalkF10);
+	al_destroy_bitmap(wWalkF11);
+	al_destroy_bitmap(wWalkF12);
+	al_destroy_bitmap(wWalkF13);
+	al_destroy_bitmap(wWalkF14);
+	al_destroy_bitmap(wWalkF15);
+
+	al_destroy_bitmap(wJumpF1);
+	al_destroy_bitmap(wJumpF2);
+	al_destroy_bitmap(wJumpF3);
+	al_destroy_bitmap(wJumpF4);
+	al_destroy_bitmap(wJumpF5);
+	al_destroy_bitmap(wJumpF6);
+	al_destroy_bitmap(wJumpF7);
+	al_destroy_bitmap(wJumpF8);
+	al_destroy_bitmap(wJumpF9);
+	al_destroy_bitmap(wJumpF10);
+
+	al_destroy_bitmap(Scenario);
+	al_destroy_bitmap(sega);
+	al_destroy_bitmap(mouse);
+	al_destroy_sample(sample2);
+
+	al_destroy_timer(timer);
+	al_destroy_display(display);
+	al_destroy_event_queue(event_queue);
+
+
+	al_uninstall_system();
+	al_shutdown_image_addon();
+	al_uninstall_keyboard();
+	al_uninstall_mouse();
+	al_shutdown_primitives_addon();
+	al_shutdown_font_addon();
+	al_shutdown_ttf_addon();
+	
+
+
 }
