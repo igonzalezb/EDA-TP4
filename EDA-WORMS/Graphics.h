@@ -5,14 +5,6 @@
 #include <cstdio>
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
-#include<allegro5\allegro_video.h>
-#include<allegro5\allegro_primitives.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include<allegro5\allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include<allegro5\mouse.h>
-#include<allegro5\mouse_cursor.h>
 #include "Worm.h"
 
 typedef uint32_t uint;
@@ -23,7 +15,6 @@ public:
 	Graphics();
 	int GraphicsMain();
 	int allegro_setup();
-	void printWorm(Worm worm);
 
 private:
 	ALLEGRO_DISPLAY *display = NULL;
