@@ -20,13 +20,14 @@ Graphics::Graphics()
 	al_set_display_icon(display, sega);
 
 
-	intro();
+	//intro();
 	for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
 	
 	
 
 	redraw = false;
 	do_exit = false;
+	miliseconds = false;
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -228,129 +229,27 @@ void Graphics::intro()
 
 int Graphics::GraphicsMain()
 {
-	
-	
-
 	while (!do_exit)
 	{
-
 		ALLEGRO_EVENT ev;
 
-		if (al_get_next_event(event_queue, &ev))
+		al_wait_for_event(event_queue, &ev);
+		dispatcher(ev);
+
+		if (redraw)
 		{
-			if (ev.type == ALLEGRO_EVENT_TIMER)
-
-			{
-				if (key_pressed[KEY_UP] && worm2.whatAmIDoing() == STILL)
-					worm2.startJumping();
-
-				if (key_pressed[KEY_LEFT] && worm2.whatAmIDoing() == STILL)
-				{
-					worm2.lookRight(false);
-					worm2.startMoving();
-				}
-
-				if (key_pressed[KEY_RIGHT] && worm2.whatAmIDoing() == STILL)
-				{
-					worm2.lookRight(true);
-					worm2.startMoving();
-				}
-
-				if (key_pressed[KEY_W] && worm1.whatAmIDoing() == STILL)
-					worm1.startJumping();
-
-				if (key_pressed[KEY_A] && worm1.whatAmIDoing() == STILL)
-				{
-					worm1.lookRight(false);
-					worm1.startMoving();
-				}
-
-				if (key_pressed[KEY_D] && worm1.whatAmIDoing() == STILL)
-				{
-					worm1.lookRight(true);
-					worm1.startMoving();
-				}
-
-				redraw = true;
-			}
-
-
-			else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-				do_exit = true;
-
-			else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-			{
-				switch (ev.keyboard.keycode) {
-				case ALLEGRO_KEY_UP:
-					if (worm2.whatAmIDoing() == STILL)
-						key_pressed[KEY_UP] = true;
-					break;
-				case ALLEGRO_KEY_LEFT:
-					if (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING)
-						key_pressed[KEY_LEFT] = true;
-					break;
-				case ALLEGRO_KEY_RIGHT:
-					if (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING)
-						key_pressed[KEY_RIGHT] = true;
-					break;
-				case ALLEGRO_KEY_W:
-					if (worm1.whatAmIDoing() == STILL)
-						key_pressed[KEY_W] = true;
-					break;
-				case ALLEGRO_KEY_A:
-						if (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING)
-						key_pressed[KEY_A] = true;
-					break;
-				case ALLEGRO_KEY_D:
-					if (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING)
-						key_pressed[KEY_D] = true;
-					break;
-				}
-			}
-
-			else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-			{
-				switch (ev.keyboard.keycode) {
-				case ALLEGRO_KEY_UP:
-					key_pressed[KEY_UP] = false;
-					break;
-
-				case ALLEGRO_KEY_LEFT:
-					key_pressed[KEY_LEFT] = false;
-					break;
-
-				case ALLEGRO_KEY_RIGHT:
-					key_pressed[KEY_RIGHT] = false;
-					break;
-				case ALLEGRO_KEY_W:
-					key_pressed[KEY_W] = false;
-					break;
-				case ALLEGRO_KEY_A:
-					key_pressed[KEY_A] = false;
-					break;
-				case ALLEGRO_KEY_D:
-					key_pressed[KEY_D] = false;
-					break;
-
-				case ALLEGRO_KEY_ESCAPE:
-					do_exit = true;
-					break;
-				}
-			}
-
-			if (redraw) {
-				worm1.continueAction();
-				worm2.continueAction();
-				al_clear_to_color(al_map_rgb(218, 227, 125));
-				al_draw_bitmap(Scenario, 0.0, 0.0, 0);
-				printWorm(worm1);
-				printWorm(worm2);
-				al_flip_display();
-				redraw = false;
-			}
+			worm1.continueAction();
+			worm2.continueAction();
+			redraw = false;
+			al_clear_to_color(al_map_rgb(218, 227, 125));
+			al_draw_bitmap(Scenario, 0.0, 0.0, 0);
+			printWorm(worm1);
+			printWorm(worm2);
+			al_flip_display();
 		}
 
-		
+
+
 	}
 	al_destroy_timer(timer);
 	al_destroy_display(display);
@@ -358,9 +257,9 @@ int Graphics::GraphicsMain()
 
 	return 0;
 }
-
 void Graphics::printWorm(Worm worm)
 {
+	//WALKING FRAMES
 	switch (worm.getCurrentFrame())
 	{
 	case 0: case 1: case 2: case 3: case 4:
@@ -712,4 +611,131 @@ int Graphics::loadImages()
 	
 
 	return 0;
+}
+
+
+void Graphics::dispatcher(ALLEGRO_EVENT ev)
+{
+	if (ev.type == ALLEGRO_EVENT_TIMER)
+	{
+		if (key_pressed[KEY_UP] && worm2.whatAmIDoing() == STILL)
+		{
+			worm2.startJumping();
+			key_pressed[KEY_UP] = false;
+		}
+		else if (key_pressed[KEY_LEFT] && (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING))
+		{
+			if (miliseconds == true)
+			{
+				worm2.lookRight(false);
+				worm2.startMoving();
+				key_pressed[KEY_LEFT] = false;
+			}
+			else
+				miliseconds = true;
+		}
+
+		else if (key_pressed[KEY_RIGHT] && (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING))
+		{
+			if (miliseconds == true)
+			{
+				worm2.lookRight(true);
+				worm2.startMoving();
+				key_pressed[KEY_RIGHT] = false;
+			}
+			else
+				miliseconds = true;
+		}
+		else if (key_pressed[KEY_W] && worm1.whatAmIDoing() == STILL)
+		{
+			worm1.startJumping();
+			key_pressed[KEY_W] = false;
+		}
+		else if (key_pressed[KEY_A] && (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING))
+		{
+			if (miliseconds == true)
+			{
+				worm1.lookRight(false);
+				worm1.startMoving();
+				key_pressed[KEY_A] = false;
+			}
+			else
+				miliseconds = true;
+		}
+
+		else if (key_pressed[KEY_D] && (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING))
+		{
+			if (miliseconds == true)
+			{
+				worm1.lookRight(true);
+				worm1.startMoving();
+				key_pressed[KEY_D] = false;
+			}
+			else
+				miliseconds = true;
+		}
+		redraw = true;
+	}
+	else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		do_exit = true;
+	else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+	{
+		switch (ev.keyboard.keycode) {
+		case ALLEGRO_KEY_UP:
+			if (worm2.whatAmIDoing() == STILL)
+				key_pressed[KEY_UP] = true;
+			break;
+		case ALLEGRO_KEY_LEFT:
+			if (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING)
+				key_pressed[KEY_LEFT] = true;
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			if (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING)
+				key_pressed[KEY_RIGHT] = true;
+			break;
+		case ALLEGRO_KEY_W:
+			if (worm1.whatAmIDoing() == STILL)
+				key_pressed[KEY_W] = true;
+			break;
+		case ALLEGRO_KEY_A:
+			if (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING)
+				key_pressed[KEY_A] = true;
+			break;
+		case ALLEGRO_KEY_D:
+			if (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING)
+				key_pressed[KEY_D] = true;
+			break;
+		}
+	}
+	else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+	{
+		switch (ev.keyboard.keycode)
+		{
+		case ALLEGRO_KEY_UP:
+			key_pressed[KEY_UP] = false;
+			break;
+		case ALLEGRO_KEY_LEFT:
+			key_pressed[KEY_LEFT] = false;
+			miliseconds = false;
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			key_pressed[KEY_RIGHT] = false;
+			miliseconds = false;
+			break;
+		case ALLEGRO_KEY_W:
+			key_pressed[KEY_W] = false;
+			break;
+		case ALLEGRO_KEY_A:
+			key_pressed[KEY_A] = false;
+			miliseconds = false;
+			break;
+		case ALLEGRO_KEY_D:
+			key_pressed[KEY_D] = false;
+			miliseconds = false;
+			break;
+		case ALLEGRO_KEY_ESCAPE:
+			do_exit = true;
+			break;
+		}
+	}
 }
