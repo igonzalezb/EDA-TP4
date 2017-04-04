@@ -15,6 +15,11 @@
 #include<allegro5\mouse_cursor.h>
 #include "Worm.h"
 
+
+#define CUADRADITO_SIZE		60
+#define SCREEN_W		1000
+#define SCREEN_H		696
+
 typedef uint32_t uint;
 
 class Graphics

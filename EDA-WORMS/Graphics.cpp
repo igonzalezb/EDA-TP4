@@ -1,9 +1,7 @@
 #include "Graphics.h"
 void intro(ALLEGRO_DISPLAY*display,int largo,int alto);
 
-#define CUADRADITO_SIZE		64
-#define SCREEN_W		1000
-#define SCREEN_H		696
+
 
 enum MYKEYS {
 	KEY_UP, KEY_LEFT, KEY_RIGHT,

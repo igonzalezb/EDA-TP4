@@ -6,6 +6,7 @@
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	Graphics g;
 	g.GraphicsMain();
 	//FALTA DESINSTALAR ALLEGRO Y DESTRUIR TODO
