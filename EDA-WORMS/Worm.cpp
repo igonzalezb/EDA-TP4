@@ -33,14 +33,14 @@ void Worm::startMoving(void)//Funcion que mueve la posicion del worm en un frame
 	frameCount=0;
 }
 
-void Worm::startJumping()
+void Worm::startJumping()//Funcion que mueve 1 frame el salto
 {
 	IamDoing=JUMPING;
 	aux=false;
 	frameCount = 0;
 }
 
-void Worm::continueAction()
+void Worm::continueAction()	//Funcion que detecta si esta saltando o caminando y continua con ese movimiento
 {
 	if(frameCount > FPS || aux == true)
 	{
@@ -61,11 +61,11 @@ void Worm::continueAction()
 		aux=false;
 	}
 
-	if(IamDoing == JUMPING && aux == false)
+	if(IamDoing == JUMPING && aux == false)		//Si esta saltando y no choco con el final
 	{
 	
 		p.setY(MAX_Y_POSITION - V_JUMP*sin((double)M_PI / 3)*(frameCount)+(GRAVITY/2)*pow(frameCount, 2));
-
+		//Ecuacion de MRU para tiro oblicuo
 
 		switch(lookingRight)
 		{
@@ -85,7 +85,7 @@ void Worm::continueAction()
 		}
 		frameCount++;
 	}
-	else if(IamDoing == WALKING && aux == false)
+	else if(IamDoing == WALKING && aux == false) //Si esta caminando pero no choco con el final
 	{
 		switch(lookingRight)
 		{

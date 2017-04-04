@@ -10,6 +10,5 @@ int main(int argc, char* argv[])
 	Graphics g;
 	g.GraphicsMain();
 	g.allegro_desinstalar();
-	//FALTA DESINSTALAR ALLEGRO Y DESTRUIR TODO
 	return 0;
 }

@@ -26,22 +26,26 @@ Graphics::Graphics()
 	
 	
 
-	redraw = false;
-	do_exit = false;
-	miliseconds = false;
+	redraw = false;		//Variable que me indica cuando tengo que dibujar
+	do_exit = false;	//Flag para indicar el final del programa
+	miliseconds = false;	//Flag para evitar el movimiento antes de los 100ms
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 
 	al_clear_to_color(al_map_rgb(218, 227, 125));
-	al_draw_bitmap(Scenario, 0.0, 0.0, 0);
+	al_draw_bitmap(Scenario, 0.0, 0.0, 0);				//Dibujamos el fondo
 	al_flip_display();
-	al_start_timer(timer);
+	al_start_timer(timer);		//Arraca el timer para 1 frame
+
+
+	//ARREGLOS QUE CONTIENEN EL NUMERO DE IMAGENES PARA GRAFICAR LOS MOVIMIENTOS PERTINENTES
+	//Al valor se le resta 1 para desreferenciar mas facil
 
 	uint _walkArray []= {4,4,4,4,4,1,2,3,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
 	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i] - 1; }
-
+	
 	uint _jumpArray []= {1,2,3,4,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,7,8,9,10};
 	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i] - 1; }
 	
