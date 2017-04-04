@@ -37,11 +37,16 @@ Graphics::Graphics()
 	al_draw_bitmap(Scenario, 0.0, 0.0, 0);
 	al_flip_display();
 	al_start_timer(timer);
-	walkArray = {4,4,4,4,4,4,5,6,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
-	jumpArray = {1,1,1,1,1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
-	bitmapArrWalk = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
-	bitmapArrJump = {wJumpF1,wJumpF2,wJumpF3,wJumpF4,wJumpF5,wJumpF6,wJumpF7,wJumpF8,wJumpF9,wJumpF10};
 
+	uint _walkArray []= {4,4,4,4,4,4,5,6,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4,4,5,6,7,8,9,10,11,11,12,13,14,15,4};
+	for (uint i = 0; i < 50; i++) { walkArray[i] = _walkArray[i]; }
+	uint _jumpArray []= {1,1,1,1,1,2,2,2,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,6,7,8,9,10,9,8,7,6,1};
+	for (uint i = 0; i < 50; i++) { jumpArray[i] = _jumpArray[i]; }
+	
+	ALLEGRO_BITMAP *_bitmapArrWalk[] = {wWalkF1,wWalkF2,wWalkF3,wWalkF4,wWalkF5,wWalkF6,wWalkF7,wWalkF8,wWalkF9,wWalkF10,wWalkF11,wWalkF12,wWalkF13,wWalkF14,wWalkF15};
+	for (uint i = 0; i < 15; i++) { bitmapArrWalk[i] = _bitmapArrWalk[i]; }
+	ALLEGRO_BITMAP *_bitmapArrJump[] = {wJumpF1,wJumpF2,wJumpF3,wJumpF4,wJumpF5,wJumpF6,wJumpF7,wJumpF8,wJumpF9,wJumpF10};
+	for (uint i = 0; i < 10; i++) { bitmapArrJump[i] = _bitmapArrJump[i]; }
 }
 
 
