@@ -152,13 +152,12 @@ int Graphics::GraphicsMain()
 			if (redraw) {
 				worm1.continueAction();
 				worm2.continueAction();
-				redraw = false;
 				al_clear_to_color(al_map_rgb(218, 227, 125));
 				al_draw_bitmap(Scenario, 0.0, 0.0, 0);
 				printWorm(worm1);
 				printWorm(worm2);
 				al_flip_display();
-				
+				redraw = false;
 			}
 		}
 
