@@ -7,8 +7,6 @@
 
 void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 
-	
-	al_set_window_title(display, "SEGA GENESIS--WOMRS");
 	ALLEGRO_BITMAP*image = al_load_bitmap("descarga.png");
 	ALLEGRO_BITMAP*bmp = al_load_bitmap("mouse/wormPrecision-triangle.png");
 	ALLEGRO_MOUSE_CURSOR *cursor=al_create_mouse_cursor(bmp,0, 0);

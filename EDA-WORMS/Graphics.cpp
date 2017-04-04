@@ -14,6 +14,9 @@ Graphics::Graphics()
 {
 	if(allegro_setup() == -1)
 		fprintf(stderr, "ALLEGRO ERROR\n");
+
+	al_set_window_title(display, "SEGA GENESIS-WOMRS");
+
 	intro(display,SCREEN_W,SCREEN_H);
 	for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
 	
@@ -151,12 +154,8 @@ int Graphics::GraphicsMain()
 				redraw = false;
 				al_clear_to_color(al_map_rgb(218, 227, 125));
 				al_draw_bitmap(Scenario, 0.0, 0.0, 0);
-				//for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
 				printWorm(worm1);
 				printWorm(worm2);
-				//al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm1.getX(), worm1.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm1._lookingRight());
-				//al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm2.getX(), worm2.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm2._lookingRight());
-				
 				al_flip_display();
 				
 			}
@@ -255,6 +254,43 @@ int Graphics::allegro_setup()
 		return -1;
 	}
 
+
+	if (!al_install_audio())
+	{
+		fprintf(stderr, "Unable to start audio addon \n");
+		al_uninstall_system();
+		return -1;
+	}
+	if (!al_install_keyboard())
+	{
+		fprintf(stderr, "Unable to start keyboard addon \n");
+		al_uninstall_system();
+		return -1;
+	}
+	if (!al_install_mouse())
+	{
+		fprintf(stderr, "Unable to start mouse addon \n");
+		al_uninstall_system();
+		return -1;
+	}
+	if (!al_init_acodec_addon())
+	{
+		fprintf(stderr, "Unable to start audio codec addon \n");
+		al_uninstall_system();
+		return -1;
+	}
+	if (!al_reserve_samples(1))
+	{
+		fprintf(stderr, "Unable to reserve samples \n");
+		al_uninstall_system();
+		return -1;
+	}
+	
+
+	al_init_font_addon(); // initialize the font addon
+	al_init_ttf_addon();	// initialize the ttf (True Type Font) addon
+
+
 	timer = al_create_timer(1.0 / FPS);
 	if (!timer) {
 		fprintf(stderr, "failed to create timer!\n");
@@ -277,15 +313,7 @@ int Graphics::allegro_setup()
 		return -1;
 	}
 
-	al_install_audio();
-	al_install_keyboard();
-	al_install_mouse();
-	al_reserve_samples(1);
-	al_init_acodec_addon();
-
-	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();	// initialize the ttf (True Type Font) addon
-
+	
 
 
 	return 0;
