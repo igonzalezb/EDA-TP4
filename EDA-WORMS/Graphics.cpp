@@ -650,26 +650,34 @@ void Graphics::dispatcher(ALLEGRO_EVENT ev)
 		}
 		else if (key_pressed[KEY_LEFT] && (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING))
 		{
-			if (miliseconds == true)
+			if (miliseconds == 6)
 			{
 				worm2.lookRight(false);
 				worm2.startMoving();
-				key_pressed[KEY_LEFT] = false;
+				//key_pressed[KEY_LEFT] = false;
 			}
-			else
-				miliseconds = true;
+			else 
+			{
+				worm2.lookRight(false);
+				miliseconds++;
+			}
+				
 		}
 
 		else if (key_pressed[KEY_RIGHT] && (worm2.whatAmIDoing() == STILL || worm2.whatAmIDoing() == FINISHING_WALKING))
 		{
-			if (miliseconds == true)
+			if (miliseconds == 6)
 			{
 				worm2.lookRight(true);
 				worm2.startMoving();
-				key_pressed[KEY_RIGHT] = false;
+				//key_pressed[KEY_RIGHT] = false;
 			}
 			else
-				miliseconds = true;
+			{
+				worm2.lookRight(true);
+				miliseconds++;
+			}
+				
 		}
 		else if (key_pressed[KEY_W] && worm1.whatAmIDoing() == STILL)
 		{
@@ -678,26 +686,34 @@ void Graphics::dispatcher(ALLEGRO_EVENT ev)
 		}
 		else if (key_pressed[KEY_A] && (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING))
 		{
-			if (miliseconds == true)
+			if (miliseconds == 6)
 			{
 				worm1.lookRight(false);
 				worm1.startMoving();
-				key_pressed[KEY_A] = false;
+				//key_pressed[KEY_A] = false;
 			}
 			else
-				miliseconds = true;
+			{
+				worm1.lookRight(false);
+				miliseconds++;
+			}
+				
 		}
 
 		else if (key_pressed[KEY_D] && (worm1.whatAmIDoing() == STILL || worm1.whatAmIDoing() == FINISHING_WALKING))
 		{
-			if (miliseconds == true)
+			if (miliseconds == 6)
 			{
 				worm1.lookRight(true);
 				worm1.startMoving();
-				key_pressed[KEY_D] = false;
+				//key_pressed[KEY_D] = false;
 			}
 			else
-				miliseconds = true;
+			{
+				worm1.lookRight(true);
+				miliseconds++;
+			}
+				
 		}
 		redraw = true;
 	}
@@ -741,22 +757,22 @@ void Graphics::dispatcher(ALLEGRO_EVENT ev)
 			break;
 		case ALLEGRO_KEY_LEFT:
 			key_pressed[KEY_LEFT] = false;
-			miliseconds = false;
+			miliseconds = 0;
 			break;
 		case ALLEGRO_KEY_RIGHT:
 			key_pressed[KEY_RIGHT] = false;
-			miliseconds = false;
+			miliseconds = 0;
 			break;
 		case ALLEGRO_KEY_W:
 			key_pressed[KEY_W] = false;
 			break;
 		case ALLEGRO_KEY_A:
 			key_pressed[KEY_A] = false;
-			miliseconds = false;
+			miliseconds = 0;
 			break;
 		case ALLEGRO_KEY_D:
 			key_pressed[KEY_D] = false;
-			miliseconds = false;
+			miliseconds = 0;
 			break;
 		case ALLEGRO_KEY_ESCAPE:
 			do_exit = true;

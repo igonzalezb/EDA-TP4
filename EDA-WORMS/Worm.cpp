@@ -1,7 +1,7 @@
 #include "Worm.h"
 #include <cmath>
-#define START_POSITION	240
-#define MAX_POSITION	470				//Es la diferencia entre el inicio y el final en px para que no se pase
+#define START_POSITION	230
+#define MAX_POSITION	480				//Es la diferencia entre el inicio y el final en px para que no se pase
 #define MAX_Y_POSITION	616
 #define V_JUMP		4.5
 #define CORRECTION_FACTOR	0.03
@@ -70,12 +70,12 @@ void Worm::continueAction()
 		switch(lookingRight)
 		{
 			case true:
-				//p.setX(p.getX()+(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
-				p.setX(p.getX() + ((frameCount)*V_JUMP*cos((double)M_PI/3))*CORRECTION_FACTOR);
+				if((p.getX() + ((frameCount)*V_JUMP*cos((double)M_PI / 3))*CORRECTION_FACTOR) < (START_POSITION+MAX_POSITION))
+					p.setX(p.getX() + ((frameCount)*V_JUMP*cos((double)M_PI/3))*CORRECTION_FACTOR);
 				break;
 			case false:
-				//p.setX(p.getX()-(cos((double)60*M_PI/180)*V_JUMP_X*((double)1/(FPS - frameCount+1))));
-				p.setX(p.getX() - ((frameCount)*V_JUMP*cos((double)M_PI / 3))*CORRECTION_FACTOR);
+				if ((p.getX() - ((frameCount)*V_JUMP*cos((double)M_PI / 3))*CORRECTION_FACTOR) > (START_POSITION))
+					p.setX(p.getX() - ((frameCount)*V_JUMP*cos((double)M_PI / 3))*CORRECTION_FACTOR);
 				break;
 		}
 		if(p.getY() >MAX_Y_POSITION)

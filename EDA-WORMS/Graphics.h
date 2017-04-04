@@ -84,7 +84,7 @@ private:
 	Worm worm1;
 	Worm worm2;
 
-	bool miliseconds;
+	uint miliseconds;
 	bool key_pressed[6]; //Estado de teclas, true cuando esta apretada
 	bool redraw;
 	bool do_exit;
