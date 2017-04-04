@@ -2,7 +2,13 @@
 #ifndef _GRAPHICS_H
 #define _GGRAPHICS_H
 
+
+#include <iostream>
 #include <cstdio>
+#include <cstdlib>
+#include <ctime>
+
+#include "Worm.h"
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
 #include<allegro5\allegro_video.h>
@@ -13,7 +19,7 @@
 #include <allegro5/allegro_ttf.h>
 #include<allegro5\mouse.h>
 #include<allegro5\mouse_cursor.h>
-#include "Worm.h"
+
 
 
 #define CUADRADITO_SIZE		60
@@ -29,12 +35,17 @@ public:
 	int GraphicsMain();
 	int allegro_setup();
 	void printWorm(Worm _worm);
+	void intro();
 
 private:
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_BITMAP *Scenario = NULL;
+	ALLEGRO_BITMAP *sega = NULL;
+	ALLEGRO_BITMAP* mouse = NULL;
+	ALLEGRO_MOUSE_CURSOR *cursor = NULL;
+	ALLEGRO_SAMPLE *sample2 = NULL;
 
 
 	ALLEGRO_BITMAP *wWalkF1 = NULL;
