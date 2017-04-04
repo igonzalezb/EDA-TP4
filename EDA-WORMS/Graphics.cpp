@@ -26,11 +26,6 @@ Graphics::Graphics()
 	redraw = false;
 	do_exit = false;
 
-
-}
-
-int Graphics::GraphicsMain()
-{
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
@@ -39,6 +34,12 @@ int Graphics::GraphicsMain()
 	al_draw_bitmap(Scenario, 0.0, 0.0, 0);
 	al_flip_display();
 	al_start_timer(timer);
+
+}
+
+int Graphics::GraphicsMain()
+{
+	
 	
 
 	while (!do_exit)

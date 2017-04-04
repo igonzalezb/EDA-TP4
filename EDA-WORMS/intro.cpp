@@ -7,27 +7,46 @@
 
 void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 
-	ALLEGRO_BITMAP*image = al_load_bitmap("descarga.png");
-	ALLEGRO_BITMAP*bmp = al_load_bitmap("mouse/wormPrecision-triangle.png");
-	ALLEGRO_MOUSE_CURSOR *cursor=al_create_mouse_cursor(bmp,0, 0);
+	ALLEGRO_BITMAP *sega = NULL;
+	ALLEGRO_BITMAP* mouse = NULL;
+	ALLEGRO_BITMAP* image = NULL;
+	ALLEGRO_MOUSE_CURSOR *cursor = NULL;
+	ALLEGRO_SAMPLE *sample = NULL;
+
+
+	sega = al_load_bitmap("resources/sega.png");
+	if (!sega)
+	{
+		fprintf(stderr, "failed to create sega bitmap!\n");
+	}
+	
+	mouse = al_load_bitmap("resources/mouse/mouse.png");
+	if (!mouse)
+	{
+		fprintf(stderr, "failed to create mouse bitmap!\n");
+	}
+	
+	cursor=al_create_mouse_cursor(mouse,0, 0);
+	if (!cursor)
+	{
+		fprintf(stderr, "failed to create cursor bitmap!\n");
+	}
 	al_set_mouse_cursor(display, cursor);
-	al_set_display_icon(display, image);
+	al_set_display_icon(display, sega);
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
-	ALLEGRO_SAMPLE *sample = NULL;
-	sample = al_load_sample("Sega_-_1991.wav");
+	
+	sample = al_load_sample("resources/Sega1991.wav");
 	
 	al_play_sample(sample, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 	al_rest(2.5);
-	//al_draw_bitmap(image, largo / 5, alto / 3, 0);
-
-
-	al_draw_scaled_bitmap(image,
+	
+	al_draw_scaled_bitmap(sega,
 		0, 0,                                // source origin
-		al_get_bitmap_width(image),     // source width
-		al_get_bitmap_height(image),    // source height
+		al_get_bitmap_width(sega),     // source width
+		al_get_bitmap_height(sega),    // source height
 		largo/6, alto/4,                                // target origin
-		al_get_bitmap_width(image)*2/3, al_get_bitmap_height(image)*0.5,                                // target dimensions
+		al_get_bitmap_width(sega)*2/3, al_get_bitmap_height(sega)*0.5,                                // target dimensions
 		0                                    // flags
 	);
 
@@ -43,6 +62,10 @@ void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 	image = al_load_bitmap("worms.png");
 	ALLEGRO_BITMAP *imagen2 = NULL;
 	imagen2= al_load_bitmap("logo_gusano.png");
+	if (!imagen2)
+	{
+		fprintf(stderr, "failed to create imagen2 bitmap!\n");
+	}
 
 	for (int i = alto; i >= -500; i -= 10) {
 		
@@ -75,11 +98,11 @@ void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 	srand(time(NULL));
 	switch (rand() % 4)
 	{
-			case 3: {
-				image = al_load_bitmap("fondo1.png");
-				al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), 0, 0, alto, largo, 0);
-				al_flip_display();
-				break;
+		case 3: {
+			image = al_load_bitmap("fondo1.png");
+			al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), 0, 0, alto, largo, 0);
+			al_flip_display();
+			break;
 		}
 		case 2: {
 			image = al_load_bitmap("fondo2.png");
@@ -117,7 +140,7 @@ void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 
 
 	ALLEGRO_FONT * font = NULL;
-	font = al_load_font("ARCADE.TTF", 72, 0);
+	font = al_load_font("resources/ARCADE.TTF", 72, 0);
 	while (1)
 	{
 		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), 0, 0, alto, largo, 0);
