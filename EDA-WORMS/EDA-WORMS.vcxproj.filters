@@ -27,9 +27,6 @@
     <ClCompile Include="Worm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="intro.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Position.h">
