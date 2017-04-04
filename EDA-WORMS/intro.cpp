@@ -8,21 +8,6 @@
 void intro (ALLEGRO_DISPLAY*display,int alto,int largo) {
 
 	
-	
-	
-	
-	
-	al_install_audio();
-	al_install_keyboard();
-	al_install_mouse();
-	al_reserve_samples(1);
-	al_init_acodec_addon();
-	
-	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();	// initialize the ttf (True Type Font) addon
-
-	
-	
 	al_set_window_title(display, "SEGA GENESIS--WOMRS");
 	ALLEGRO_BITMAP*image = al_load_bitmap("descarga.png");
 	ALLEGRO_BITMAP*bmp = al_load_bitmap("mouse/wormPrecision-triangle.png");

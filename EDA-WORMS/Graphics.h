@@ -23,6 +23,7 @@ public:
 	Graphics();
 	int GraphicsMain();
 	int allegro_setup();
+	void printWorm(Worm worm);
 
 private:
 	ALLEGRO_DISPLAY *display = NULL;

@@ -3,7 +3,7 @@
 
 typedef enum {STILL, WALKING_PENDING, WALKING, JUMPING, FINISHING_WALKING, FINISHING_JUMPING} wormState;
 
-#define FPS			60.0
+#define FPS			50.0
 
 class Worm
 {

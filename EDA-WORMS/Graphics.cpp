@@ -16,10 +16,14 @@ Graphics::Graphics()
 		fprintf(stderr, "ALLEGRO ERROR\n");
 	intro(display,SCREEN_W,SCREEN_H);
 	for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
-	redraw = false;
-	do_exit = false;
+	
 	if (loadImages() == -1)
 		fprintf(stderr, "ALLEGRO ERROR\n");
+
+	redraw = false;
+	do_exit = false;
+
+
 }
 
 int Graphics::GraphicsMain()
@@ -148,10 +152,13 @@ int Graphics::GraphicsMain()
 				al_clear_to_color(al_map_rgb(218, 227, 125));
 				al_draw_bitmap(Scenario, 0.0, 0.0, 0);
 				//for (uint i = 0; i < 6; i++) { key_pressed[i] = false; } //Estado de teclas, true cuando esta apretada
-				al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm1.getX(), worm1.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm1._lookingRight());
-				al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm2.getX(), worm2.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm2._lookingRight());
+				printWorm(worm1);
+				printWorm(worm2);
+				//al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm1.getX(), worm1.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm1._lookingRight());
+				//al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm2.getX(), worm2.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm2._lookingRight());
 				
 				al_flip_display();
+				
 			}
 		}
 
@@ -164,10 +171,71 @@ int Graphics::GraphicsMain()
 	return 0;
 }
 
-//void printWorm(uint32_t frameCount, Worm worm)
-//{
-//
-//}
+void Graphics::printWorm(Worm worm)
+{
+	switch (worm.getCurrentFrame())
+	{
+	case 0: case 1: case 2: case 3: case 4:
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+
+	case 5:
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 6: 
+		al_draw_scaled_bitmap(wWalkF5, 0.0, 0.0, al_get_bitmap_width(wWalkF5), al_get_bitmap_height(wWalkF5), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 7: 
+		al_draw_scaled_bitmap(wWalkF6, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 8: case 22: case 36:
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 9: case 23: case 37:
+		al_draw_scaled_bitmap(wWalkF5, 0.0, 0.0, al_get_bitmap_width(wWalkF5), al_get_bitmap_height(wWalkF5), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 10: case 24: case 38:
+		al_draw_scaled_bitmap(wWalkF6, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 11: case 25: case 39:
+		al_draw_scaled_bitmap(wWalkF7, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 12: case 26: case 40:
+		al_draw_scaled_bitmap(wWalkF8, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 13: case 27: case 41:
+		al_draw_scaled_bitmap(wWalkF9, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 14: case 28: case 42:
+		al_draw_scaled_bitmap(wWalkF10, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 15: case 29: case 43:
+		al_draw_scaled_bitmap(wWalkF11, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 16: case 30: case 44:
+		al_draw_scaled_bitmap(wWalkF11, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 17: case 31: case 45:
+		al_draw_scaled_bitmap(wWalkF12, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 18: case 32: case 46:
+		al_draw_scaled_bitmap(wWalkF13, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 19: case 33: case 47:
+		al_draw_scaled_bitmap(wWalkF14, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 20: case 34: case 48:
+		al_draw_scaled_bitmap(wWalkF15, 0.0, 0.0, al_get_bitmap_width(wWalkF6), al_get_bitmap_height(wWalkF6), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	case 21: case 35: case 49:
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	default:
+		al_draw_scaled_bitmap(wWalkF4, 0.0, 0.0, al_get_bitmap_width(wWalkF4), al_get_bitmap_height(wWalkF4), worm.getX(), worm.getY(), CUADRADITO_SIZE, CUADRADITO_SIZE, worm._lookingRight());
+		break;
+	}
+
+}
 
 int Graphics::allegro_setup()
 {
@@ -208,6 +276,17 @@ int Graphics::allegro_setup()
 		al_destroy_timer(timer);
 		return -1;
 	}
+
+	al_install_audio();
+	al_install_keyboard();
+	al_install_mouse();
+	al_reserve_samples(1);
+	al_init_acodec_addon();
+
+	al_init_font_addon(); // initialize the font addon
+	al_init_ttf_addon();	// initialize the ttf (True Type Font) addon
+
+
 
 	return 0;
 }
